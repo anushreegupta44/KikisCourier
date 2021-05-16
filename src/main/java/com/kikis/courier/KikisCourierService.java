@@ -4,6 +4,7 @@ import com.kikis.courier.domain.Order;
 import com.kikis.courier.domain.Parcel;
 import com.kikis.courier.service.DiscountService;
 import com.kikis.courier.service.PricingService;
+import com.kikis.courier.util.Printer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +26,8 @@ public class KikisCourierService {
   private void calculatePrice(Scanner scanner) {
     System.out.println("Please enter base delivery cost for order with number of packages separated by a space");
     DiscountService discountService = new DiscountService();
-    PricingService pricingService = new PricingService(discountService);
+    Printer printer = new Printer();
+    PricingService pricingService = new PricingService(discountService, printer);
     String line1 = scanner.nextLine();
     String[] line1Array = line1.split(" ");
     Order order = new Order();

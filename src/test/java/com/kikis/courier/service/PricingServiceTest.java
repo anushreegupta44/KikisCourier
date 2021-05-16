@@ -2,6 +2,7 @@ package com.kikis.courier.service;
 
 import com.kikis.courier.domain.Order;
 import com.kikis.courier.domain.Parcel;
+import com.kikis.courier.util.Printer;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -21,6 +22,8 @@ public class PricingServiceTest {
   private PricingService pricingService;
   @Mock
   private DiscountService discountService;
+  @Mock
+  private Printer printer;
 
   @Test
   public void shouldCalculatePriceForOrder() {

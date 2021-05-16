@@ -2,6 +2,8 @@ package com.kikis.courier.domain;
 
 import lombok.Data;
 
+import static java.util.Objects.isNull;
+
 @Data
 public class Parcel {
   private String id;
@@ -16,5 +18,20 @@ public class Parcel {
     this.weight = weight;
     this.distanceToDestination = distanceToDestination;
     this.couponCode = couponCode;
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder res = new StringBuilder();
+    if (!isNull(id)) {
+      res.append(id).append(" ");
+    }
+    if (!isNull(totalDiscount)) {
+      res.append(totalDiscount).append(" ");
+    }
+    if (!isNull(costToDeliver)) {
+      res.append(costToDeliver).append(" ");
+    }
+    return res.toString();
   }
 }
