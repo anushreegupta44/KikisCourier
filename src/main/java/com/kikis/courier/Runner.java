@@ -1,32 +1,53 @@
 package com.kikis.courier;
 
-import com.kikis.courier.domain.coupon.Coupon;
-import com.kikis.courier.domain.coupon.OFR001;
-import com.kikis.courier.domain.coupon.OFR002;
-import com.kikis.courier.domain.coupon.OFR003;
+import com.kikis.courier.domain.Order;
 import com.kikis.courier.service.CouponService;
 import com.kikis.courier.service.DiscountService;
 import com.kikis.courier.service.PricingService;
-import com.kikis.courier.util.Printer;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
+
+import static com.kikis.courier.util.Printer.printMenuOptions;
+import static com.kikis.courier.util.Printer.printParcelInfo;
+import static com.kikis.courier.util.Printer.printToConsole;
+import static com.kikis.courier.util.Printer.printWelcomeMessage;
+import static com.kikis.courier.util.UserInputReader.getOrderFromInput;
+import static com.kikis.courier.util.UserInputReader.takeUserOption;
 
 public class Runner {
-  public static void start() {
-    KikisCourierService kikisCourierService = init();
-    kikisCourierService.start();
+  private final KikisCourierService kikisCourierService;
+  private static final String ERROR_MESSAGE = "Some error in input. Please start again";
+
+  public Runner() {
+    kikisCourierService = init();
+  }
+
+  public void start() {
+    printWelcomeMessage();
+    printMenuOptions();
+    try {
+      int userOption = takeUserOption();
+      switch (userOption) {
+        case 1:
+          Order order = getOrderFromInput();
+          kikisCourierService.calculatePrice(order);
+          printParcelInfo(order.getParcels());
+          break;
+        case 2:
+          break;
+        default:
+          break;
+      }
+    } catch (IOException e) {
+      printToConsole(ERROR_MESSAGE);
+      start();
+    }
   }
 
   private static KikisCourierService init() {
-    List<Coupon> coupons = new ArrayList<>();
-    coupons.add(new OFR001());
-    coupons.add(new OFR002());
-    coupons.add(new OFR003());
-    CouponService couponService = new CouponService(coupons);
+    CouponService couponService = new CouponService();
     DiscountService discountService = new DiscountService(couponService);
-    Printer printer = new Printer();
-    PricingService pricingService = new PricingService(discountService, printer);
+    PricingService pricingService = new PricingService(discountService);
     return new KikisCourierService(pricingService);
   }
 }

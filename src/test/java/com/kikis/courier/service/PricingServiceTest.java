@@ -2,7 +2,6 @@ package com.kikis.courier.service;
 
 import com.kikis.courier.domain.Order;
 import com.kikis.courier.domain.Parcel;
-import com.kikis.courier.util.Printer;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -13,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -24,8 +22,6 @@ public class PricingServiceTest {
   private PricingService pricingService;
   @Mock
   private DiscountService discountService;
-  @Mock
-  private Printer printer;
 
   @Test
   public void shouldCalculatePriceForOrder() {
@@ -36,7 +32,6 @@ public class PricingServiceTest {
 
     assertEquals(Double.valueOf(817.6), parcel.getCostToDeliver());
     assertEquals(Double.valueOf(2.4), parcel.getTotalDiscount());
-    verify(printer).printToConsole(anyString());
   }
 
   private Order buildOrder() {

@@ -1,7 +1,7 @@
 package com.kikis.courier.service;
 
+import com.kikis.courier.domain.Coupon;
 import com.kikis.courier.domain.Parcel;
-import com.kikis.courier.domain.coupon.OFR001;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -20,8 +20,9 @@ public class DiscountServiceTest {
 
   @Test
   public void shouldGetApplicableDiscountWhenCouponCodeInParcelIsValid() {
-    Parcel parcel = new Parcel("Parcel-1", 75.0, 55.0, "valid-coupon-1");
-    when(couponService.getCouponFrom("valid-coupon-1")).thenReturn(new OFR001());
+    Parcel parcel = new Parcel("Parcel-1", 66.0, 55.0, "valid-coupon-1");
+    Coupon coupon = new Coupon("valid-coupon-1", 10, 100, 5, 70, 10.0);
+    when(couponService.getCouponFrom("valid-coupon-1")).thenReturn(coupon);
 
     assertEquals(Double.valueOf(9.8), discountService.getApplicableDiscount(parcel, 98.0));
   }

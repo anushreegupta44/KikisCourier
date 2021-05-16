@@ -1,5 +1,6 @@
 package com.kikis.courier.domain.coupon;
 
+import com.kikis.courier.domain.Coupon;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -10,37 +11,7 @@ public class CouponTest {
 
   @BeforeClass
   public static void init() {
-    coupon = new Coupon() {
-      @Override
-      public String getCode() {
-        return "valid-coupon-code";
-      }
-
-      @Override
-      public Integer getMinDistance() {
-        return 5;
-      }
-
-      @Override
-      public Integer getMaxDistance() {
-        return 10;
-      }
-
-      @Override
-      public Integer getMinWeight() {
-        return 50;
-      }
-
-      @Override
-      public Integer getMaxWeight() {
-        return 100;
-      }
-
-      @Override
-      public Double getPercentDiscount() {
-        return 10.0;
-      }
-    };
+    coupon = new Coupon("valid-coupon-code", 5, 10, 50, 100, 10.0);
   }
 
   @Test

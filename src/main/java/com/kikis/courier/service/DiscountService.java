@@ -1,7 +1,7 @@
 package com.kikis.courier.service;
 
 import com.kikis.courier.domain.Parcel;
-import com.kikis.courier.domain.coupon.Coupon;
+import com.kikis.courier.domain.Coupon;
 
 import static java.util.Objects.isNull;
 

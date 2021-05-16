@@ -1,19 +1,19 @@
 package com.kikis.courier.service;
 
-import com.kikis.courier.domain.coupon.Coupon;
+import com.kikis.courier.domain.Coupon;
 
-import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
 
 public class CouponService {
   private final Map<String, Coupon> coupons;
 
-  public CouponService(List<Coupon> coupons) {
-    this.coupons = coupons.stream().collect(Collectors.toMap(Coupon::getCode, Function.identity()));
+  public CouponService() {
+    Coupon offer1Coupon = new Coupon("OFR001", 0, 199, 70, 200, 10.0);
+    Coupon offer2Coupon = new Coupon("OFR002", 50, 150, 100, 250, 7.0);
+    Coupon offer3Coupon = new Coupon("OFR003", 50, 250, 10, 150, 5.0);
+    this.coupons = Map.of(offer1Coupon.getCode(), offer1Coupon, offer2Coupon.getCode(), offer2Coupon, offer3Coupon.getCode(), offer3Coupon);
   }
 
   public Coupon getCouponFrom(String couponCode) {
