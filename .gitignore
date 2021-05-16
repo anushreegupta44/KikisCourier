@@ -1,0 +1,22 @@
+build/
+!**/src/main/**
+!**/src/test/**
+
+### IntelliJ IDEA ###
+.idea
+*.iml
+target/
+
+# Eclipse
+**/.classpath
+**/.project
+**/.settings/
+
+### VS Code ###
+.vscode/
+
+# Mac
+**/.DS_Store
+
+# generated
+**/generated/*
