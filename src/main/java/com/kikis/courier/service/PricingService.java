@@ -17,14 +17,13 @@ public class PricingService {
 
   public void calculatePriceForOrder(Order order) {
     for (Parcel parcel : order.getParcels()) {
-      Double costPrice = calculateBaseCostForParcel(order.getBaseDeliveryCost(), parcel);
-      Double discount = discountService.getApplicableDiscount(parcel, costPrice);
-      parcel.setCostToDeliver(costPrice - discount);
+      Double basePrice = calculateBaseCostForParcel(order.getBaseDeliveryCost(), parcel);
+      Double discount = discountService.getApplicableDiscount(parcel, basePrice);
+      parcel.setCostToDeliver(basePrice - discount);
       parcel.setTotalDiscount(discount);
       printer.printToConsole(parcel.toString());
     }
   }
-
 
   private Double calculateBaseCostForParcel(Double baseDeliveryCost, Parcel parcel) {
     return baseDeliveryCost + (parcel.getWeight() * WEIGHT_COST_MULTIPLIER) + (parcel.getDistanceToDestination() * DISTANCE_COST_MULTIPLER);

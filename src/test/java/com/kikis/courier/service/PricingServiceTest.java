@@ -13,7 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -34,6 +36,7 @@ public class PricingServiceTest {
 
     assertEquals(Double.valueOf(817.6), parcel.getCostToDeliver());
     assertEquals(Double.valueOf(2.4), parcel.getTotalDiscount());
+    verify(printer).printToConsole(anyString());
   }
 
   private Order buildOrder() {
@@ -45,6 +48,4 @@ public class PricingServiceTest {
     order.setParcels(parcels);
     return order;
   }
-
-
 }
