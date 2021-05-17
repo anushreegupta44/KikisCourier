@@ -1,6 +1,6 @@
-package com.kikis.courier.domain.coupon;
+package com.kikis.courier.model.coupon;
 
-import com.kikis.courier.domain.Coupon;
+import com.kikis.courier.model.Coupon;
 import org.junit.BeforeClass;
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package com.kikis.courier.domain;
+package com.kikis.courier.model;
 
 import lombok.Data;
 
@@ -12,6 +12,8 @@ public class Parcel {
   private String couponCode;
   private Double costToDeliver;
   private Double totalDiscount;
+  private Double timeToDeliver;
+  private Boolean isDelivered;
 
   public Parcel(String id, Double weight, Double distanceToDestination, String couponCode) {
     this.id = id;
@@ -31,6 +33,9 @@ public class Parcel {
     }
     if (!isNull(costToDeliver)) {
       res.append(costToDeliver).append(" ");
+    }
+    if (!isNull(timeToDeliver)) {
+      res.append(timeToDeliver).append(" ");
     }
     return res.toString();
   }

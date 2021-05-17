@@ -1,4 +1,4 @@
-package com.kikis.courier.domain;
+package com.kikis.courier.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,4 +12,5 @@ import java.util.List;
 public class Order {
   private Double baseDeliveryCost;
   private List<Parcel> parcels;
+  private List<Parcel> deliveredParcels;
 }
