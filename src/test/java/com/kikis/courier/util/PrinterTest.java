@@ -1,6 +1,6 @@
 package com.kikis.courier.util;
 
-import com.kikis.courier.domain.Parcel;
+import com.kikis.courier.model.Parcel;
 import org.junit.Before;
 import org.junit.Test;
 

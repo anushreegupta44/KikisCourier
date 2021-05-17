@@ -1,15 +1,17 @@
 package com.kikis.courier.service;
 
-import com.kikis.courier.domain.Coupon;
+import com.kikis.courier.model.Coupon;
 
 import java.util.Map;
 
 import static java.util.Objects.isNull;
 
 public class CouponService {
+  public static CouponService INSTANCE = null;
+
   private final Map<String, Coupon> coupons;
 
-  public CouponService() {
+  private CouponService() {
     Coupon offer1Coupon = new Coupon("OFR001", 0, 199, 70, 200, 10.0);
     Coupon offer2Coupon = new Coupon("OFR002", 50, 150, 100, 250, 7.0);
     Coupon offer3Coupon = new Coupon("OFR003", 50, 250, 10, 150, 5.0);
@@ -25,5 +27,12 @@ public class CouponService {
       return null;
     }
     return coupon;
+  }
+
+  public static CouponService getInstance() {
+    if (INSTANCE == null) {
+      INSTANCE = new CouponService();
+    }
+    return INSTANCE;
   }
 }

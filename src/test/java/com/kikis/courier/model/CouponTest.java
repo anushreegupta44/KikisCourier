@@ -1,4 +1,4 @@
-package com.kikis.courier.model.coupon;
+package com.kikis.courier.model;
 
 import com.kikis.courier.model.Coupon;
 import org.junit.BeforeClass;

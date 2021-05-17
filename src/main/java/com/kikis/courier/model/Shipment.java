@@ -8,13 +8,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 public class Shipment {
-  //TODO: make private
-  List<Parcel> parcels;
-  Double weight;
-  Double deliveryTime;
-
-  public Shipment(List<Parcel> parcels, Double weight) {
-    this.parcels = parcels;
-    this.weight = weight;
-  }
+  private List<Parcel> parcels;
+  private Double weight;
+  private Double deliveryTime;
 }

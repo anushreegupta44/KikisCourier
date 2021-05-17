@@ -1,7 +1,7 @@
 package com.kikis.courier.service;
 
-import com.kikis.courier.domain.Order;
-import com.kikis.courier.domain.Parcel;
+import com.kikis.courier.model.Order;
+import com.kikis.courier.model.Parcel;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -32,6 +32,11 @@ public class PricingServiceTest {
 
     assertEquals(Double.valueOf(817.6), parcel.getCostToDeliver());
     assertEquals(Double.valueOf(2.4), parcel.getTotalDiscount());
+  }
+
+  @Test
+  public void shouldGetInstance() {
+    assertNotNull(PricingService.getInstance());
   }
 
   private Order buildOrder() {

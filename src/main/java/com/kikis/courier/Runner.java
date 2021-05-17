@@ -1,22 +1,23 @@
 package com.kikis.courier;
 
-import com.kikis.courier.domain.Order;
-import com.kikis.courier.service.CouponService;
-import com.kikis.courier.service.DiscountService;
-import com.kikis.courier.service.PricingService;
+import com.kikis.courier.model.Order;
+import com.kikis.courier.model.Vehicle;
 
 import java.io.IOException;
+import java.util.List;
 
 import static com.kikis.courier.util.Printer.printMenuOptions;
 import static com.kikis.courier.util.Printer.printParcelInfo;
 import static com.kikis.courier.util.Printer.printToConsole;
 import static com.kikis.courier.util.Printer.printWelcomeMessage;
 import static com.kikis.courier.util.UserInputReader.getOrderFromInput;
+import static com.kikis.courier.util.UserInputReader.initVehicleInfoFromUserInput;
 import static com.kikis.courier.util.UserInputReader.takeUserOption;
 
 public class Runner {
-  private final KikisCourierService kikisCourierService;
+  private static KikisCourierService kikisCourierService;
   private static final String ERROR_MESSAGE = "Some error in input. Please start again";
+
 
   public Runner() {
     kikisCourierService = init();
@@ -29,11 +30,16 @@ public class Runner {
       int userOption = takeUserOption();
       switch (userOption) {
         case 1:
-          Order order = getOrderFromInput();
-          kikisCourierService.calculatePrice(order);
-          printParcelInfo(order.getParcels());
+          Order priceOrder = getOrderFromInput();
+          kikisCourierService.calculatePrice(priceOrder);
+          printParcelInfo(priceOrder.getParcels());
           break;
         case 2:
+          Order estimatedTimeOrder = getOrderFromInput();
+          initDeliveryService();
+          kikisCourierService.calculatePrice(estimatedTimeOrder);
+          kikisCourierService.calculateEstimatedDeliveryTimeFor(estimatedTimeOrder);
+          printParcelInfo(estimatedTimeOrder.getParcels());
           break;
         default:
           break;
@@ -44,10 +50,13 @@ public class Runner {
     }
   }
 
+  private static void initDeliveryService() {
+    List<Vehicle> vehicles = initVehicleInfoFromUserInput();
+    kikisCourierService.getDeliveryService().getVehicleService().setVehicles(vehicles);
+    kikisCourierService.getDeliveryService().getShipmentService().setMaxWeight(vehicles.get(0).getMaxLoad());
+  }
+
   private static KikisCourierService init() {
-    CouponService couponService = new CouponService();
-    DiscountService discountService = new DiscountService(couponService);
-    PricingService pricingService = new PricingService(discountService);
-    return new KikisCourierService(pricingService);
+    return KikisCourierService.getInstance();
   }
 }

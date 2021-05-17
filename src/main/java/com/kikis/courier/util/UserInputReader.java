@@ -1,7 +1,8 @@
 package com.kikis.courier.util;
 
-import com.kikis.courier.domain.Order;
-import com.kikis.courier.domain.Parcel;
+import com.kikis.courier.model.Order;
+import com.kikis.courier.model.Parcel;
+import com.kikis.courier.model.Vehicle;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,12 +15,10 @@ import static com.kikis.courier.util.Printer.printToConsole;
 public class UserInputReader {
   private static final BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
   private static final String ALL_SPACE_REGEX = "[ \\t]+";
-  private static final String BASE_DELIVERY_AND_NUMBER_OF_PACKAGES =
-          "Please enter base delivery cost for order and number of packages separated by a space";
-  private static final String ERROR_MESSAGE_BASE_DELIVERY_COST_OR_PARCEL_NUMBER =
-          "Some error entering base delivery cost or number of parcel info. Please enter again";
-  private static final String ERROR_MESSAGE_PARCEL =
-          "Some error entering parcel info. Please enter again";
+  private static final String BASE_DELIVERY_AND_NUMBER_OF_PACKAGES = "Please enter base delivery cost for order and number of packages separated by a space";
+  private static final String ERROR_MESSAGE_BASE_DELIVERY_COST_OR_PARCEL_NUMBER = "Some error entering base delivery cost or number of parcel info. Please enter again";
+  private static final String ERROR_MESSAGE_PARCEL = "Some error entering parcel info. Please enter again";
+  private static final String ERROR_MESSAGE_VEHICLE = "Some error entering vehicle info. Please enter again";
 
   public static int takeUserOption() throws IOException {
     String userOption = readLine();
@@ -39,6 +38,7 @@ public class UserInputReader {
       order.setBaseDeliveryCost(Double.parseDouble(orderAndParcelNumber[0]));
       List<Parcel> parcelList = initialiseParcelsFromUserInput(orderAndParcelNumber[1]);
       order.setParcels(parcelList);
+      order.setDeliveredParcels(new ArrayList<>());
     } catch (Exception e) {
       printToConsole(ERROR_MESSAGE_BASE_DELIVERY_COST_OR_PARCEL_NUMBER);
       initialseOrderFromUserInput();
@@ -58,6 +58,26 @@ public class UserInputReader {
       }
     }
     return parcelList;
+  }
+
+  public static List<Vehicle> initVehicleInfoFromUserInput() {
+    String vehicleInfo;
+    List<Vehicle> vehicles = null;
+    try {
+      vehicleInfo = readLine();
+      String[] vehicleInfoArray = vehicleInfo.split(ALL_SPACE_REGEX);
+      int numberOfVehicles = Integer.parseInt(vehicleInfoArray[0]);
+      Double maxSpeed = Double.parseDouble(vehicleInfoArray[1]);
+      Double maxLoad = Double.parseDouble(vehicleInfoArray[2]);
+      vehicles = new ArrayList<>();
+      for (int i = 0; i < numberOfVehicles; i++) {
+        vehicles.add(new Vehicle(0.0, maxSpeed, maxLoad));
+      }
+    } catch (IOException e) {
+      printToConsole(ERROR_MESSAGE_VEHICLE);
+      initVehicleInfoFromUserInput();
+    }
+    return vehicles;
   }
 
   private static String readLine() throws IOException {

@@ -35,7 +35,7 @@ public class Parcel {
       res.append(costToDeliver).append(" ");
     }
     if (!isNull(timeToDeliver)) {
-      res.append(timeToDeliver).append(" ");
+      res.append(String.format("%.2f", timeToDeliver));
     }
     return res.toString();
   }

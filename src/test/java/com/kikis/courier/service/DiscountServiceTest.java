@@ -1,7 +1,7 @@
 package com.kikis.courier.service;
 
-import com.kikis.courier.domain.Coupon;
-import com.kikis.courier.domain.Parcel;
+import com.kikis.courier.model.Coupon;
+import com.kikis.courier.model.Parcel;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -9,6 +9,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -40,5 +41,10 @@ public class DiscountServiceTest {
     Parcel parcel = new Parcel("Parcel-1", 75.0, 55.0, null);
 
     assertEquals(Double.valueOf(0.0), discountService.getApplicableDiscount(parcel, 98.0));
+  }
+
+  @Test
+  public void shouldGetInstance() {
+    assertNotNull(DiscountService.getInstance());
   }
 }

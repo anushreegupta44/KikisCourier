@@ -5,13 +5,8 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class Vehicle implements Comparable<Vehicle> {
-  Double availableInHours;
-  Double maxSpeed;
-  Double maxLoad;
-
-  @Override
-  public int compareTo(Vehicle o) {
-    return (int) (this.availableInHours - o.availableInHours);
-  }
+public class Vehicle {
+  private Double availableInHours;
+  private Double maxSpeed;
+  private Double maxLoad;
 }
