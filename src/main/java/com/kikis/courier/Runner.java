@@ -6,12 +6,13 @@ import com.kikis.courier.model.Vehicle;
 import java.io.IOException;
 import java.util.List;
 
+import static com.kikis.courier.util.Printer.printDeliveryTimeParcelInfo;
 import static com.kikis.courier.util.Printer.printMenuOptions;
-import static com.kikis.courier.util.Printer.printParcelInfo;
+import static com.kikis.courier.util.Printer.printPricingParcelInfo;
 import static com.kikis.courier.util.Printer.printToConsole;
 import static com.kikis.courier.util.Printer.printWelcomeMessage;
 import static com.kikis.courier.util.UserInputReader.getOrderFromInput;
-import static com.kikis.courier.util.UserInputReader.initVehicleInfoFromUserInput;
+import static com.kikis.courier.util.UserInputReader.getVehicleInfoFromUserInput;
 import static com.kikis.courier.util.UserInputReader.takeUserOption;
 
 public class Runner {
@@ -32,14 +33,15 @@ public class Runner {
         case 1:
           Order priceOrder = getOrderFromInput();
           kikisCourierService.calculatePrice(priceOrder);
-          printParcelInfo(priceOrder.getParcels());
+          printPricingParcelInfo(priceOrder.getParcels());
           break;
         case 2:
           Order estimatedTimeOrder = getOrderFromInput();
-          initDeliveryService();
+          List<Vehicle> vehicles = getVehicleInfoFromUserInput();
+          initDeliveryService(vehicles);
           kikisCourierService.calculatePrice(estimatedTimeOrder);
           kikisCourierService.calculateEstimatedDeliveryTimeFor(estimatedTimeOrder);
-          printParcelInfo(estimatedTimeOrder.getParcels());
+          printDeliveryTimeParcelInfo(estimatedTimeOrder.getParcels());
           break;
         default:
           break;
@@ -50,8 +52,7 @@ public class Runner {
     }
   }
 
-  private static void initDeliveryService() {
-    List<Vehicle> vehicles = initVehicleInfoFromUserInput();
+  private static void initDeliveryService(List<Vehicle> vehicles) {
     kikisCourierService.getDeliveryService().getVehicleService().setVehicles(vehicles);
     kikisCourierService.getDeliveryService().getShipmentService().setMaxWeight(vehicles.get(0).getMaxLoad());
   }

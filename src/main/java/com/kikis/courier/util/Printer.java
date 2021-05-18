@@ -9,8 +9,16 @@ public class Printer {
     System.out.println(info);
   }
 
-  public static void printParcelInfo(List<Parcel> parcels) {
+  public static void printPricingParcelInfo(List<Parcel> parcels) {
     printToConsole("Pricing Info for parcels in order");
+    printToConsole("PackageId Discount TotalCost");
+    for (Parcel parcel : parcels) {
+      printToConsole(parcel.toString());
+    }
+  }
+  public static void printDeliveryTimeParcelInfo(List<Parcel> parcels) {
+    printToConsole("Pricing Info for parcels in order");
+    printToConsole("PackageId Discount TotalCost EstimatedDeliveryTime");
     for (Parcel parcel : parcels) {
       printToConsole(parcel.toString());
     }

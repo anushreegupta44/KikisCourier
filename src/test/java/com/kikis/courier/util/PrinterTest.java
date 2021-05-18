@@ -9,7 +9,7 @@ import java.io.PrintStream;
 import java.util.List;
 
 import static com.kikis.courier.util.Printer.printMenuOptions;
-import static com.kikis.courier.util.Printer.printParcelInfo;
+import static com.kikis.courier.util.Printer.printPricingParcelInfo;
 import static com.kikis.courier.util.Printer.printToConsole;
 import static com.kikis.courier.util.Printer.printWelcomeMessage;
 import static org.junit.Assert.assertEquals;
@@ -51,8 +51,9 @@ public class PrinterTest {
     parcel.setCostToDeliver(100.0);
     parcel.setTotalDiscount(22.1);
 
-    printParcelInfo(List.of(parcel));
+    printPricingParcelInfo(List.of(parcel));
 
-    assertEquals("Pricing Info for parcels in order\nparcel1 22.1 100.0", outputStreamCaptor.toString().trim());
+    assertEquals("Pricing Info for parcels in order\nPackageId Discount TotalCost\nparcel1 22.1 100.0",
+            outputStreamCaptor.toString().trim());
   }
 }
